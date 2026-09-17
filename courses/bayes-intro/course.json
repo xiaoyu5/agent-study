@@ -1,0 +1,63 @@
+{
+  "schema_version": "1",
+  "id": "bayes-intro",
+  "version": "0.1.0",
+  "title": "新证据如何改变判断——贝叶斯更新与基准率",
+  "audience": "能理解百分比、希望学习概率推理的初学者",
+  "prerequisites": ["理解分数、百分比以及概率介于 0 和 1 之间"],
+  "objectives": [
+    "用自己的话解释先验概率及其与基准率的关系",
+    "区分 P(E|H) 与 P(H|E)，说明条件概率的方向",
+    "在给定先验和似然的二元例子中计算后验，并解释基准率的影响",
+    "在自己的领域识别假设、证据与缺失数据，区分概率更新和行动决策"
+  ],
+  "review_status": "draft",
+  "sources": [
+    {
+      "id": "mit-18-05",
+      "title": "MIT 18.05（2022）：Class 3 条件概率与 Class 11 贝叶斯更新相关材料",
+      "url": "https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/pages/classes-reading-and-in-class-materials/"
+    },
+    {
+      "id": "seeing-theory",
+      "title": "Brown Seeing Theory：Bayesian Inference（已归档，作为补充图解）",
+      "url": "https://seeing-theory.brown.edu/bayesian-inference/index.html"
+    }
+  ],
+  "concepts": [
+    {
+      "id": "prior",
+      "title": "先验与基准率",
+      "prerequisites": [],
+      "explanation": "先验 P(H) 是纳入当前新证据 E 之前对假设 H 的概率判断，可以来自适用人群的历史频率或已有信息。基准率描述某类事件在相关总体中的比例，常用于设定先验。例如，在某邮箱的来信中垃圾邮件占 1%，可把这批来信的 P(H) 设为 0.01；换一个邮箱时不应直接沿用这个数值。",
+      "source_ids": ["mit-18-05", "seeing-theory"],
+      "misconceptions": [
+        "只有两种可能，就认为两种可能各占 50%。",
+        "把不适用于当前总体的历史比例直接当作先验。"
+      ]
+    },
+    {
+      "id": "likelihood",
+      "title": "似然与条件概率的方向",
+      "prerequisites": ["prior"],
+      "explanation": "设 H 为邮件是垃圾邮件，E 为系统将邮件标记为可疑。P(E|H) 表示已知邮件是垃圾邮件时，它被标记的概率；P(H|E) 表示已知邮件被标记时，它是垃圾邮件的概率。两者条件不同，通常不相等。更新判断还需要比较 P(E|H) 与 P(E|not H)：证据在两个假设下出现的可能性分别是多少。",
+      "source_ids": ["mit-18-05"],
+      "misconceptions": [
+        "把垃圾邮件被标记的概率，当成被标记邮件是垃圾邮件的概率。",
+        "只看证据在 H 下出现的概率，忽略它在 not H 下也可能出现。"
+      ]
+    },
+    {
+      "id": "posterior",
+      "title": "后验更新与基准率的影响",
+      "prerequisites": ["prior", "likelihood"],
+      "explanation": "这里假设 H 与 not H 是互斥且穷尽的两种情况，并且 P(E)>0；下式中的条件概率也须有定义。贝叶斯更新为 P(H|E)=P(E|H)P(H)/(P(E|H)P(H)+P(E|not H)P(not H))。在一个假设的邮件样本中，P(H)=0.01，P(E|H)=0.90，P(E|not H)=0.05。于是 P(H|E)=0.009/(0.009+0.0495)，约为 15.4%。按这组比例构造 10,000 封邮件，100 封垃圾邮件中有 90 封被标记，9,900 封正常邮件中有 495 封被标记；被标记的 585 封里只有 90 封是垃圾邮件。证据让概率从 1% 升高到约 15.4%，但低基准率使它远低于 90%。这些数值是教学假设，不是实际系统性能。",
+      "source_ids": ["mit-18-05", "seeing-theory"],
+      "misconceptions": [
+        "看到较高的 P(E|H)，就忽略先验和误报概率。",
+        "把一次概率更新当成对假设真假的确定判决。",
+        "认为得到后验概率就能决定行动，而不考虑收益、损失和其他约束。"
+      ]
+    }
+  ]
+}
